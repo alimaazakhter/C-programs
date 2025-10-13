@@ -22,55 +22,19 @@ END;
 /
 
 
-SET SERVEROUTPUT ON;
-
-DECLARE
-    -- Item variables
-    v_item1_name  shopping.item_name%TYPE;
-    v_item1_qty   shopping.quantity%TYPE;
-    v_item1_price shopping.price%TYPE;
-    v_item1_total NUMBER;
-
-    v_item2_name  shopping.item_name%TYPE;
-    v_item2_qty   shopping.quantity%TYPE;
-    v_item2_price shopping.price%TYPE;
-    v_item2_total NUMBER;
-
-    v_item3_name  shopping.item_name%TYPE;
-    v_item3_qty   shopping.quantity%TYPE;
-    v_item3_price shopping.price%TYPE;
-    v_item3_total NUMBER;
-
-    v_grand_total NUMBER;
-BEGIN
-    -- Get first item
-    SELECT item_name, quantity, price
-    INTO v_item1_name, v_item1_qty, v_item1_price
-    FROM shopping WHERE item_id = 1;
-    v_item1_total := v_item1_qty * v_item1_price;
-
-    -- Get second item
-    SELECT item_name, quantity, price
-    INTO v_item2_name, v_item2_qty, v_item2_price
-    FROM shopping WHERE item_id = 2;
-    v_item2_total := v_item2_qty * v_item2_price;
-
-    -- Get third item
-    SELECT item_name, quantity, price
-    INTO v_item3_name, v_item3_qty, v_item3_price
-    FROM shopping WHERE item_id = 3;
-    v_item3_total := v_item3_qty * v_item3_price;
-
-    -- Calculate grand total
-    v_grand_total := v_item1_total + v_item2_total + v_item3_total;
-
-    -- Display bill
-    DBMS_OUTPUT.PUT_LINE('Item Name   Qty   Price   Total');
-    DBMS_OUTPUT.PUT_LINE('--------------------------------');
-    DBMS_OUTPUT.PUT_LINE(v_item1_name || '   ' || v_item1_qty || '   ' || v_item1_price || '   ' || v_item1_total);
-    DBMS_OUTPUT.PUT_LINE(v_item2_name || '   ' || v_item2_qty || '   ' || v_item2_price || '   ' || v_item2_total);
-    DBMS_OUTPUT.PUT_LINE(v_item3_name || '   ' || v_item3_qty || '   ' || v_item3_price || '   ' || v_item3_total);
-    DBMS_OUTPUT.PUT_LINE('--------------------------------');
-    DBMS_OUTPUT.PUT_LINE('Grand Total: ' || v_grand_total);
-END;
+2
+bill number:=0:
+begin
+select sum(price) into bill from shopping:
+dims_output-put_line ('Total Shopping bill : '||bill):
+6* end:
+SOL> set perveroucput on:
+SOL> declare
+bill number:=0:
+3
+4
+begin
+select sum(price) into bIll from shopping: dbma_output.put_line (*Total Shopping bill : *l|bill):
+end:
+7
 /
