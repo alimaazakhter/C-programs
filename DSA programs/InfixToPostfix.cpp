@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-
 #define MAX 100
 
 // -------- STACK --------
@@ -29,12 +28,12 @@ int isEmpty() {
     return top == -1;
 }
 
-// -------- CHECK OPERAND --------
+
 int isOperand(char ch) {
-    return isalnum(ch);   // letters or digits
+    return isalnum(ch);  
 }
 
-// -------- PRECEDENCE --------
+
 int precedence(char op) {
     if (op == '^') return 3;
     if (op == '*' || op == '/') return 2;
@@ -42,7 +41,6 @@ int precedence(char op) {
     return 0;
 }
 
-// -------- INFIX TO POSTFIX --------
 void infixToPostfix(char infix[], char postfix[]) {
 
     int i, j = 0;
@@ -51,30 +49,24 @@ void infixToPostfix(char infix[], char postfix[]) {
     for (i = 0; infix[i] != '\0'; i++) {
 
         ch = infix[i];
-
-        // 1. OPERAND ? add to postfix
+        
         if (isOperand(ch)) {
             postfix[j++] = ch;
         }
 
-        // 2. '(' ? push
         else if (ch == '(') {
             push(ch);
         }
 
-        // 3. ')' ? pop till '('
         else if (ch == ')') {
             while (!isEmpty() && peek() != '(') {
                 postfix[j++] = pop();
             }
-            pop(); // remove '('
+            pop(); 
         }
 
-        // 4. OPERATOR
         else {
 
-            // while stack not empty AND precedence smaller/equal
-            // BUT '^' is right associative
             while (!isEmpty() &&
                    ((precedence(ch) < precedence(peek())) ||
                    (precedence(ch) == precedence(peek()) && ch != '^'))) {
@@ -85,8 +77,7 @@ void infixToPostfix(char infix[], char postfix[]) {
             push(ch);
         }
     }
-
-    // POP remaining operators
+    
     while (!isEmpty()) {
         postfix[j++] = pop();
     }
@@ -108,3 +99,4 @@ int main() {
 
     return 0;
 }
+
