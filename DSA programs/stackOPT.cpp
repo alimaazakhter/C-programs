@@ -1,101 +1,102 @@
-#include <stdio.h>
-#define size 5
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 4
 
-struct stack {
-    int st[size];
-    int top;
-};
+int stack_arr[MAX];
+int top = -1;
 
-struct stack s; // global stack variable
-
-int isempty() {
-    if (s.top == -1) {
-        return 1;
-    } else {
-        return 0;
+void push(int data)
+{
+    if(top == MAX - 1)
+    {
+        printf("Stack is full\n");
+        return;
     }
+    top = top + 1;
+    stack_arr[top] = data;
+    printf("Pushed: %d\n", data);
 }
 
-int isfull() {
-    if (s.top == size - 1) {
-        return 1;
-    } else {
-        return 0;
+int pop()
+{
+    int value;
+    if(top == -1)
+    {
+        printf("Stack is empty\n");
+        return -1;
     }
+    value = stack_arr[top];
+    top = top - 1;
+    return value;
 }
 
-void push(int element) {
-    if (isfull()) {
-        printf("\nStack is Full (Overflow)");
-    } else {
-        s.top++;
-        s.st[s.top] = element;
-        printf("\nElement %d pushed successfully", element);
+void peep()
+{
+    if(top == -1)
+    {
+        printf("Stack is empty\n");
+        return;
     }
+    printf("Top element: %d\n", stack_arr[top]);
 }
 
-void pop() {
-    if (isempty()) {
-        printf("\nStack is Empty (Underflow)");
-    } else {
-        printf("\nElement popped: %d", s.st[s.top]);
-        s.top--;
-    }
-}
-
-void peep() {
-    if (isempty()) {
-        printf("\nStack is empty");
-    } else {
-        printf("\nTop element: %d", s.st[s.top]);
-    }
-}
-
-void display() {
+void print()
+{
     int i;
-    if (isempty()) {
-        printf("\nStack is empty");
-    } else {
-        printf("\nStack elements are:\n");
-        for (i = s.top; i >= 0; i--) {
-            printf("%d\n", s.st[i]);
-        }
+    if(top == -1)
+    {
+        printf("Stack is empty\n");
+        return;
+    }
+    printf("Stack elements:\n");
+    for(i = top; i >= 0; i--)
+    {
+        printf("%d\n", stack_arr[i]);
     }
 }
 
-int main() {
-    int choice, element;
-    s.top = -1; // initialize stack
+int main()
+{
+    int choice, data;
 
-    while (1) {
-        printf("\n\n--- Stack Menu ---");
-        printf("\n1. Push");
-        printf("\n2. Pop");
-        printf("\n3. Peep");
-        printf("\n4. Display");
-        printf("\n5. Exit");
-        printf("\nEnter your choice: ");
+    while(1)
+    {
+        printf("\n--- Stack Menu ---\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Peep\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+        printf("Enter choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
+        switch(choice)
+        {
             case 1:
-                printf("Enter element to push: ");
-                scanf("%d", &element);
-                push(element);
+                printf("Enter element: ");
+                scanf("%d", &data);
+                push(data);
                 break;
+
             case 2:
-                pop();
+                data = pop();
+                if(data != -1)
+                    printf("Popped: %d\n", data);
                 break;
-            case 3:
-                peep();
-                break;
+			
+			case 3:
+    			peep();
+    			break;
+    			
             case 4:
-                display();
+                print();
                 break;
+
             case 5:
-                return 0;
+                exit(0);
+
             default:
-                printf("\nInvalid choice! Try again.");
+                printf("Invalid choice\n");
         }
     }
 }
